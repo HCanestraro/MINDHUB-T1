@@ -1,72 +1,71 @@
 package com.mindhub.homebanking.Models;
-import javax.persistence.*;
-//import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-@Entity
 
+import javax.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
 public class Client {
 
+	//Atributos o propiedades
+	@Id
+	@GenericGenerator(name= "native", strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	private Long id;
+	private String firstName;
+	private String lastName;
+	private String email;
 
-//		@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-//	Set<Account> accounts = new HashSet<>();
-		//properties
-		@Id
-//		@GeneratedValue(strategy = GenerationType.AUTO) // Uses an automatic ID generation strategy
-		@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-		@GenericGenerator(name = "native", strategy = "native")
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+	private Set<Account> accounts = new HashSet<>();
 
+	//Constructores
+	public Client() { }
 
-		private Long id;
-		private String firstName;
-		private String lastName;
-		private String email;
+	public Client(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
 
-		//class constructors
+	//metodos
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
 
-		// Parameterless constructor
-		public Client() {
-			// Default values or common initial values
-			this.firstName = "";
-			this.lastName = "";
-			this.email = "";
-		}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-		// Constructor with parameters to initialize all attributes
-		public Client(String firstName, String lastName, String email) {
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.email = email;
-		}
-		// Getters and setters for attributes - accessor methods
-		public String getFirstName() {
-			return firstName;
-		}
-		public void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
-		public String getLastName() {
-			return lastName;
-		}
-		public void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
-		public String getEmail() {
-			return email;
-		}
-		public void setEmail(String email) {
-			this.email = email;
-		}
+	public String getLastName() {
+		return lastName;
+	}
 
-/*	public Set<Account> getAccounts() {
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Set<Account> getAccounts(){
 		return accounts;
 	}
-*/
-
-/*	public void addAccounts(Account account) {
+	public void addAccount(Account account){
 		account.setClient(this);
-		accounts.add(account);
+		this.accounts.add(account);
 	}
-*/
-
-
 }
