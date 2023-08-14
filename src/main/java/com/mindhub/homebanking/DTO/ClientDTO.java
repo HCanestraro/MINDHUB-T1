@@ -1,16 +1,10 @@
 package com.mindhub.homebanking.DTO;
 
-
-import com.mindhub.homebanking.Models.Account;
 import com.mindhub.homebanking.Models.Client;
-
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ClientDTO {
-
     private Long id;
     private String firstName;
     private String lastName;
@@ -22,25 +16,21 @@ public class ClientDTO {
         firstName = client.getFirstName();
         lastName = client.getLastName();
         email = client.getEmail();
-        accounts = client.getAccounts().stream().map(account -> new AccountDTO(account)).collect(Collectors.toSet());
+        accounts = client.getAccounts().stream().map(AccountDTO::new).collect(Collectors.toSet());
     }
 
     public Long getId() {
         return id;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public String getEmail() {
         return email;
     }
-
     public Set<AccountDTO> getAccounts() {
         return accounts;
     }

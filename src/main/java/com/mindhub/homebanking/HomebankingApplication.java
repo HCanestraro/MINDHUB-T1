@@ -11,7 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -65,10 +64,6 @@ public class HomebankingApplication {
 			transactionRepository.save(tran4);
 			transactionRepository.save(tran5);
 			transactionRepository.save(tran6);
-
-
-
 		};
 	}
-
 }

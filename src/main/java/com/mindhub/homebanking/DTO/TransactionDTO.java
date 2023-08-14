@@ -2,11 +2,9 @@ package com.mindhub.homebanking.DTO;
 
 import com.mindhub.homebanking.Models.Transaction;
 import com.mindhub.homebanking.Models.TransactionType;
-
 import java.time.LocalDateTime;
 
 public class TransactionDTO {
-
     private Long id;
     private TransactionType type;
     private Double amount;
