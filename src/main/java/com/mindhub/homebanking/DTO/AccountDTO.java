@@ -20,7 +20,7 @@ public class AccountDTO {
         transactions = account.getTransactions().stream().map(TransactionDTO::new).collect(Collectors.toList());
     }
 
-    public Long getId() {        return id;    }
+    public Long getId() { return id; }
     public String getNumber() {
         return number;
     }
