@@ -1,2 +1,7 @@
-package com.mindhub.homebanking.Models;public enum AccountType {
+package com.mindhub.homebanking.Models;
+
+public enum AccountType {
+    CTACTE,
+    AHORRO
+
 }

@@ -86,4 +86,3 @@ public class Transaction {
         return id;
     }
 }
-
