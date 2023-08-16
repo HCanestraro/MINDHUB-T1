@@ -36,6 +36,9 @@ public class Account {
         this.accountType = accountType;
     }
 
+    public Account(String vin001, LocalDateTime now, double v) {
+    }
+
     @JsonIgnore
     public Client getClient() {
         return client;
