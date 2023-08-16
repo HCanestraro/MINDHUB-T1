@@ -9,29 +9,53 @@ public class TransactionDTO {
     private TransactionType type;
     private Double amount;
     private String description;
-    private LocalDateTime date;
+    private LocalDateTime transactionDate;
 
     public TransactionDTO(Transaction transaction){
         id = transaction.getId();
         type = transaction.getType();
         amount = transaction.getAmount();
         description = transaction.getDescription();
-        date = transaction.getDate();
+        transactionDate = transaction.getTransactionDate();
     }
 
     public Long getId() {
         return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public TransactionType getType() {
         return type;
     }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
     public Double getAmount() {
         return amount;
     }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
     public String getDescription() {
         return description;
     }
-    public LocalDateTime getDate() {
-        return date;
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }

@@ -1,12 +1,13 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.Models.Account;
-import com.mindhub.homebanking.Models.Client;
-import com.mindhub.homebanking.Models.Transaction;
-import com.mindhub.homebanking.Models.TransactionType;
-import com.mindhub.homebanking.Repositories.AccountRepository;
-import com.mindhub.homebanking.Repositories.ClientRepository;
-import com.mindhub.homebanking.Repositories.TransactionRepository;
+import com.mindhub.homebanking.Models.*;
+//import com.mindhub.homebanking.Models.Client;
+//import com.mindhub.homebanking.Models.Transaction;
+//import com.mindhub.homebanking.Models.TransactionType;
+import com.mindhub.homebanking.Repositories.*;
+//import com.mindhub.homebanking.Repositories.ClientRepository;
+//import com.mindhub.homebanking.Repositories.TransactionRepository;
+//import com.mindhub.homebanking.Repositories.CardRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,7 +23,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+	public CommandLineRunner initData(CardRepository cardRepository, ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository) {
 		return (args) -> {
 			Client client1 = new Client("Melba", "Morel", "melba@mindhub.com");
 			Client client2 = new Client("Tony", "Stark", "stark@mindhub.com");
@@ -57,6 +58,10 @@ public class HomebankingApplication {
 			transactionRepository.save(tran2);
 			transactionRepository.save(tran3);
 			transactionRepository.save(tran4);
+			cardRepository.save(new Card(client1, "3325-6745-7876-4445", 990, LocalDate.now(), LocalDate.now().plusYears(5), CardType.DEBIT, CardColor.GOLD));
+			cardRepository.save(new Card(client1, "2234-6745-5522-7888", 750, LocalDate.now(), LocalDate.now().plusYears(5), CardType.CREDIT, CardColor.SILVER));
+			cardRepository.save(new Card(client2, "4546-5169-7821-5597", 154, LocalDate.now(), LocalDate.now().plusYears(5), CardType.CREDIT, CardColor.TITANIUM));
+
 		};
 	}
 }

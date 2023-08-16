@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.Models;
 
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,23 +10,46 @@ public class ClientLoan {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
+
     private double amount;
-    private Integer payments;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "client_id")
+    private int payments;
+    private double totalAmount;
+    private String account;
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="client_id")
     private Client client;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "loan_id")
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="loan_id")
     private Loan loan;
 
     public ClientLoan() {
     }
 
-    public ClientLoan(double amount, Integer payments, Client client, Loan loan) {
+    public ClientLoan(double amount, int payments, Client client, Loan loan, String account, double totalAmount) {
         this.amount = amount;
         this.payments = payments;
         this.client = client;
         this.loan = loan;
+        this.totalAmount = amount + (amount * (loan.getInterest() / 100));
+        this.account = account;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public long getId() {
@@ -40,11 +64,11 @@ public class ClientLoan {
         this.amount = amount;
     }
 
-    public Integer getPayments() {
+    public int getPayments() {
         return payments;
     }
 
-    public void setPayments(Integer payments) {
+    public void setPayments(int payments) {
         this.payments = payments;
     }
 

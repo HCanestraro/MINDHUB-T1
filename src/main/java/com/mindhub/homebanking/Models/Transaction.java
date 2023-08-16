@@ -1,65 +1,89 @@
 package com.mindhub.homebanking.Models;
-
-import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Transaction {
     @Id
-    @GenericGenerator(name= "native", strategy = "native")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    private Long id;
-    private TransactionType type;
+    @GenericGenerator(name = "native", strategy = "native")
+    private long id;
+
     private Double amount;
+    private LocalDateTime transactionDate;
     private String description;
-    private LocalDateTime date;
+    private TransactionType type;
+    private Double balance;
+
+
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="account_id")
     private Account account;
 
     public Transaction() {}
 
-    public Transaction(TransactionType type, Double amount, String description, LocalDateTime date) {
-        this.type = type;
+    public Transaction(Double amount, LocalDateTime transactionDate, String description, Account account, TransactionType type) {
         this.amount = amount;
+        this.transactionDate = transactionDate;
         this.description = description;
-        this.date = date;
+        this.account = account;
+        this.type = type;
+        this.balance = account.getBalance() + amount;
     }
 
-    public Long getId() {
-        return id;
+    public Double getBalance() {
+        return balance;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
+
     public TransactionType getType() {
         return type;
     }
+
     public void setType(TransactionType type) {
         this.type = type;
     }
-    public Double getAmount() {
-        return amount;
-    }
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public LocalDateTime getDate() {
-        return date;
-    }
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
+
     public Account getAccount() {
         return account;
     }
+
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public long getId() {
+        return id;
+    }
 }
+

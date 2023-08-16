@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +22,15 @@ public class Account {
     @JoinColumn(name = "client_id")
     private Client client;
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private List<Transaction> transactions = new ArrayList<>();
+    private Set<Transaction> transactions = new HashSet<>();
 
     public Account() { }
 
-    public Account(String number, LocalDateTime creationDate, Double balance) {
+    public Account(String number, LocalDateTime creationDate, Double balance, Client client) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.client = client;
     }
 
     @JsonIgnore
@@ -61,7 +64,7 @@ public class Account {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
-    public List<Transaction> getTransactions() {
+    public Set<Transaction> getTransactions() {
         return transactions;
     }
     public void addTransaction(Transaction transaction){

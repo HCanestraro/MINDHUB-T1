@@ -17,6 +17,7 @@ public class Loan {
     private long id;
     private String name;
     private Double maxAmount;
+    private double interest;
 
     /**
      * Sometimes you want to have a one-to-many relationship between an entity and a
@@ -37,11 +38,20 @@ public class Loan {
     public Loan() {
     }
 
-    public Loan(String name, Double maxAmount, List<Integer> payments) {
+    public Loan(String name, Double maxAmount, List<Integer> payments, double interest) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments = payments;
-        this.clientLoans = new HashSet<>();
+        this.interest = interest;
+        //this.clientLoans = new HashSet<>();
+    }
+
+    public double getInterest() {
+        return interest;
+    }
+
+    public void setInterest(double interest) {
+        this.interest = interest;
     }
 
     public long getId() {
