@@ -1,37 +1,41 @@
 package com.mindhub.homebanking.Models;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Client {
-	//Atributos o propiedades
 	@Id
-	@GenericGenerator(name= "native", strategy = "native")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+	@GenericGenerator(name = "native", strategy = "native")
 	private Long id;
+	private String email;
 	private String firstName;
 	private String lastName;
-	private String email;
-	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
 	private Set<Account> accounts = new HashSet<>();
-	//Constructores
-	public Client() { }
-
-	public Client(String firstName, String lastName, String email) {
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+	private Set<ClientLoan> clientLoans = new HashSet<>();
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+	private Set<Card> cards = new HashSet<>();
+	public Client(){
+	}
+	public Client(String email, String firstName, String lastName) {
+		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 	}
-
-	//metodos
 	public Long getId() {
 		return id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -45,17 +49,34 @@ public class Client {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public Set<Account> getAccounts(){
+	public Set<Account> getAccounts() {
 		return accounts;
 	}
-	public void addAccount(Account account){
-		account.setClient(this);
-		this.accounts.add(account);
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
+	}
+	public Set<ClientLoan> getClientLoans() {
+		return clientLoans;
+	}
+	public void setLoans(Set<ClientLoan> loans) {
+		this.clientLoans = loans;
+	}
+	public Set<Card> getCards() {
+		return cards;
+	}
+	public void setCards(Set<Card> cards) {
+		this.cards = cards;
+	}
+	public void addAccount(Account account) {
+		account.setOwner(this);
+		accounts.add(account);
+	}
+	public void addLoan(ClientLoan loan) {
+		loan.setClient(this);
+		clientLoans.add(loan);
+	}
+	public void addCard(Card card) {
+		card.setClient(this);
+		cards.add(card);
 	}
 }

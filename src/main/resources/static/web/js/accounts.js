@@ -7,10 +7,8 @@ Vue.createApp({
         }
     },
     methods: {
-        getData() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-            axios.get(`/api/clients/${id}`)
+        getData: function () {
+            axios.get("/api/clients/1")
                 .then((response) => {
                     //get client ifo
                     this.clientInfo = response.data;
@@ -21,12 +19,12 @@ Vue.createApp({
                     this.errorToats.show();
                 })
         },
-        formatDate(date) {
-            return new Date(date).toLocaleDateString('en-us');
-        },
+        formatDate: function (date) {
+            return new Date(date).toLocaleDateString('en-gb');
+        }
     },
-    mounted() {
+    mounted: function () {
         this.errorToats = new bootstrap.Toast(document.getElementById('danger-toast'));
         this.getData();
     }
-}).mount('#app');
+}).mount('#app')
